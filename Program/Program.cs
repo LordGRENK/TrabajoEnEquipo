@@ -4,11 +4,16 @@ class Program
 {
     static void Main()
     {
+        iniProgram();
+    }
+
+    static void iniProgram()
+    {
         int opcion;
 
         do
         {
-                        Console.Clear();
+            Console.Clear();
             Console.WriteLine("Seleccione una opción:");
             Console.WriteLine("1. Verificar Matrices");
             Console.WriteLine("2. Generar Matriz de Ceros");
@@ -22,39 +27,39 @@ class Program
             Console.WriteLine("0. Salir");
             Console.Write("->");
             opcion = ValidacionDeEntradaProgram();
-            switch (opcion )
-        {
-            case 0:
+            switch (opcion)
+            {
+                case 0:
                     Console.WriteLine("Saliendo del programa...");
                     break;
                 case 1:
-                VerificarMatrices();
-                break;
-            case 2:
-                GenerarMatrizCeros();
-                break;
-            case 3:
-                ObtenerInversoAditivo();
-                break;
-            case 4:
-                RestarMatrices();
-                break;
-            case 5:
-                MultiplicarPorEscalar();
-                break;
-            case 6:
-                MultiplicarMatrices();
-                break;
-            case 7:
-                GenerarMatrizIdentidad();
-                break;
-            case 8:
-                ObtenerMatrizInversa();
-                break;
-            case 9:
-                ObtenerDeterminante();
-                break;
-            default:
+                    VerificarMatrices();
+                    break;
+                case 2:
+                    GenerarMatrizCeros();
+                    break;
+                case 3:
+                    ObtenerInversoAditivo();
+                    break;
+                case 4:
+                    RestarMatrices();
+                    break;
+                case 5:
+                    MultiplicarPorEscalar();
+                    break;
+                case 6:
+                    MultiplicarMatrices();
+                    break;
+                case 7:
+                    GenerarMatrizIdentidad();
+                    break;
+                case 8:
+                    ObtenerMatrizInversa();
+                    break;
+                case 9:
+                    ObtenerDeterminante();
+                    break;
+                default:
                     Console.WriteLine("Opción no válida.");
                     break;
             }
