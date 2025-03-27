@@ -121,16 +121,26 @@ class Program
     static int ValidacionDeEntradaProgram()
     {
         int numero;
-        while (true)
+        int intentos = 0;
+        const int maxIntentos = 3;
+
+        while (intentos < maxIntentos)
         {
+            Console.Write("Ingrese un número entre 0 y 9: ");
             string entrada = Console.ReadLine();
+
             if (int.TryParse(entrada, out numero) && numero >= 0 && numero <= 9)
             {
                 return numero;
             }
-            Console.WriteLine("Entrada inválida. Ingrese un número entre 0 y 9");
-            Console.Write("->");
+
+            intentos++;
+            Console.WriteLine("Entrada inválida. Intente nuevamente.");
         }
+
+        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
+        Environment.Exit(0);
+        return -1; // Nunca se ejecutará, pero es necesario para que el compilador no marque error.
     }
     /**/
 
