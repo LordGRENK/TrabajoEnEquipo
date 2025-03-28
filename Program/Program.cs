@@ -4,10 +4,10 @@ class Program
 {
     static void Main()
     {
-        iniProgram();
+        IniciarProgram();
     }
 
-    static void iniProgram()
+    static void IniciarProgram()
     {
         int opcion;
 
@@ -15,15 +15,16 @@ class Program
         {
             Console.Clear();
             Console.WriteLine("Seleccione una opción:");
-            Console.WriteLine("1. Verificar Matrices");
-            Console.WriteLine("2. Generar Matriz de Ceros");
-            Console.WriteLine("3. Obtener Inverso Aditivo");
-            Console.WriteLine("4. Restar Matrices");
-            Console.WriteLine("5. Multiplicar por Escalar");
-            Console.WriteLine("6. Multiplicar Matrices");
-            Console.WriteLine("7. Generar Matriz Identidad");
-            Console.WriteLine("8. Obtener Matriz Inversa");
-            Console.WriteLine("9. Obtener Determinante");
+            Console.WriteLine("1. Sumar Matrices");
+            Console.WriteLine("2. Verificar Matrices");
+            Console.WriteLine("3. Generar Matriz de Ceros");
+            Console.WriteLine("4. Obtener Inverso Aditivo");
+            Console.WriteLine("5. Restar Matrices");
+            Console.WriteLine("6. Multiplicar por Escalar");
+            Console.WriteLine("7. Multiplicar Matrices");
+            Console.WriteLine("8. Generar Matriz Identidad");
+            Console.WriteLine("9. Obtener Matriz Inversa");
+            Console.WriteLine("10. Obtener Determinante");
             Console.WriteLine("0. Salir");
             Console.Write("->");
             opcion = ValidacionDeEntradaProgram();
@@ -33,30 +34,33 @@ class Program
                     Console.WriteLine("Saliendo del programa...");
                     break;
                 case 1:
-                    VerificarMatrices();
+                    SumarMatrices();
                     break;
                 case 2:
-                    GenerarMatrizCeros();
+                    VerificarMatrices();
                     break;
                 case 3:
-                    ObtenerInversoAditivo();
+                    GenerarMatrizCeros();
                     break;
                 case 4:
-                    RestarMatrices();
+                    ObtenerInversoAditivo();
                     break;
                 case 5:
-                    MultiplicarPorEscalar();
+                    RestarMatrices();
                     break;
                 case 6:
-                    MultiplicarMatrices();
+                    MultiplicarPorEscalar();
                     break;
                 case 7:
-                    GenerarMatrizIdentidad();
+                    MultiplicarMatrices();
                     break;
                 case 8:
-                    ObtenerMatrizInversa();
+                    GenerarMatrizIdentidad();
                     break;
                 case 9:
+                    ObtenerMatrizInversa();
+                    break;
+                case 10:
                     ObtenerDeterminante();
                     break;
                 default:
@@ -71,6 +75,109 @@ class Program
 
         } while (opcion != 0);
     }
+    /*Validadores entrada*/
+    static int ValidacionDeEntradaProgram()
+    {
+        int numero;
+        int intentos = 0;
+        const int maxIntentos = 3;
+
+        while (intentos < maxIntentos)
+        {
+            Console.Write("Ingrese un número entre 0 y 10: ");
+            string entrada = Console.ReadLine();
+
+            if (int.TryParse(entrada, out numero) && numero >= 0 && numero <= 10)
+            {
+                return numero;
+            }
+
+            intentos++;
+            Console.WriteLine("Entrada inválida. Intente nuevamente.");
+        }
+
+        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
+        Environment.Exit(0);
+        return -1; // Nunca se ejecutará, pero es necesario para que el compilador no marque error.
+    }
+
+    static int LeerEnteroPositivo()
+    {
+        int numero;
+        int intentos = 0;
+        const int maxIntentos = 3;
+
+        while (intentos < maxIntentos)
+        {
+            Console.Write("->");
+            string entrada = Console.ReadLine();
+
+            if (int.TryParse(entrada, out numero) && numero > 0)
+            {
+                return numero;
+            }
+
+            intentos++;
+            Console.WriteLine("Entrada inválida. Intente nuevamente.");
+        }
+
+        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
+        Environment.Exit(0);
+        return -1;
+    }
+
+    static int LeerEntero()
+    {
+        int numero;
+        int intentos = 0;
+        const int maxIntentos = 3;
+
+        while (intentos < maxIntentos)
+        {
+            Console.Write("Ingrese un número entero (positivo o negativo): ");
+            string entrada = Console.ReadLine();
+
+            if (int.TryParse(entrada, out numero))
+            {
+                return numero;
+            }
+
+            intentos++;
+            Console.WriteLine("Entrada inválida. Intente nuevamente.");
+        }
+
+        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
+        Environment.Exit(0);
+        return -1;
+    }
+
+    static double LeerDoble()
+    {
+        double numero;
+        int intentos = 0;
+        const int maxIntentos = 3;
+
+        while (intentos < maxIntentos)
+        {
+            Console.Write("Ingrese un número válido: ");
+            string entrada = Console.ReadLine();
+
+            if (double.TryParse(entrada, out numero))
+            {
+                return numero;
+            }
+
+            intentos++;
+            Console.WriteLine("Entrada inválida. Intente nuevamente.");
+        }
+
+        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
+        Environment.Exit(0);
+        return -1; 
+    }
+
+
+    /*Validadores entrada*/
 
     /*Todo lo de verificar matrices*/
     static void VerificarMatrices()
@@ -104,45 +211,50 @@ class Program
             Console.WriteLine("Las matrices NO son iguales.");
         }
     }
-    /**/
-    static int LeerEnteroPositivo()
+    /*Sumar matrices*/
+    static void SumarMatrices()
     {
-        int numero;
-        while (true)
+        Console.WriteLine("Ingrese el número de filas de las matrices:");
+        int filas = LeerEnteroPositivo();
+
+        Console.WriteLine("Ingrese el número de columnas de las matrices:");
+        int columnas = LeerEnteroPositivo();
+
+        int[,] matrizA = new int[filas, columnas];
+        int[,] matrizB = new int[filas, columnas];
+        int[,] matrizResultado = new int[filas, columnas];
+
+        Console.WriteLine("Ingrese los valores de la primera matriz (A):");
+        LlenarMatriz(matrizA);
+
+        Console.WriteLine("Ingrese los valores de la segunda matriz (B):");
+        LlenarMatriz(matrizB);
+
+        CalcularSuma(matrizA, matrizB, matrizResultado);
+
+        Console.WriteLine("Matriz A:");
+        ImprimirMatriz(matrizA);
+
+        Console.WriteLine("Matriz B:");
+        ImprimirMatriz(matrizB);
+
+        Console.WriteLine("Resultado de A + B:");
+        ImprimirMatriz(matrizResultado);
+    }
+   static void CalcularSuma(int[,] matrizA, int[,] matrizB, int[,] resultado)
+    {
+        for (int i = 0; i < matrizA.GetLength(0); i++)
         {
-            string entrada = Console.ReadLine();
-            if (int.TryParse(entrada, out numero) && numero > 0)
+            for (int j = 0; j < matrizA.GetLength(1); j++)
             {
-                return numero;
+                resultado[i, j] = matrizA[i, j] + matrizB[i, j];
             }
-            Console.Write("Entrada inválida. Ingrese un número entero positivo: ");
         }
     }
-    static int ValidacionDeEntradaProgram()
-    {
-        int numero;
-        int intentos = 0;
-        const int maxIntentos = 3;
 
-        while (intentos < maxIntentos)
-        {
-            Console.Write("Ingrese un número entre 0 y 9: ");
-            string entrada = Console.ReadLine();
 
-            if (int.TryParse(entrada, out numero) && numero >= 0 && numero <= 9)
-            {
-                return numero;
-            }
 
-            intentos++;
-            Console.WriteLine("Entrada inválida. Intente nuevamente.");
-        }
 
-        Console.WriteLine("Demasiados intentos. Favor intentar más tarde.");
-        Environment.Exit(0);
-        return -1; // Nunca se ejecutará, pero es necesario para que el compilador no marque error.
-    }
-    /**/
 
     /**/
     static void LlenarMatriz(int[,] matriz)
@@ -156,19 +268,7 @@ class Program
             }
         }
     }
-    static int LeerEntero()
-    {
-        int numero;
-        while (true)
-        {
-            string entrada = Console.ReadLine();
-            if (int.TryParse(entrada, out numero))
-            {
-                return numero;
-            }
-            Console.Write("Entrada inválida. Ingrese un número entero (positivo o negativo): ");
-        }
-    }
+
     /**/
 
 
@@ -490,20 +590,6 @@ class Program
                 Console.Write($"[{i},{j}]: ");
                 matriz[i, j] = LeerDoble();
             }
-        }
-    }
-
-    static double LeerDoble()
-    {
-        double numero;
-        while (true)
-        {
-            string entrada = Console.ReadLine();
-            if (double.TryParse(entrada, out numero))
-            {
-                return numero;
-            }
-            Console.WriteLine("Entrada inválida. Ingrese un número válido:");
         }
     }
 
